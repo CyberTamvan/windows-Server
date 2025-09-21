@@ -16,8 +16,15 @@ display_menu() {
 # Update package repositories and upgrade existing packages
 apt-get update && apt-get upgrade -y
 
+# Update package repositories and upgrade existing packages
+apt-get update && apt-get upgrade -y
+
 # Install QEMU and its utilities
-apt-get install -y qemu qemu-utils qemu-system-x86-xen qemu-system-x86 qemu-kvm
+apt-get install qemu -y
+apt install qemu-utils -y
+apt install qemu-system-x86-xen -y
+apt install qemu-system-x86 -y
+apt install qemu-kvm -y
 
 echo "QEMU installation completed successfully."
 
