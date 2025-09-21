@@ -13,7 +13,7 @@ wget https://raw.githubusercontent.com/CyberTamvan/windows-Server/refs/heads/mai
 Setelah diunduh, berikan izin agar file dapat dijalankan:
 
 ```bash
-chmod +x windows-server-autoinstaller.sh
+chmod +x installer.sh
 
 ```
 
