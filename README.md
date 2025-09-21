@@ -21,7 +21,7 @@ chmod +x installer.sh
 Jalankan installer dengan perintah berikut:
 
 ```bash
-./windows-server-autoinstaller.sh
+./installer.sh
 
 ```
 
