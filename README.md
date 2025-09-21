@@ -5,7 +5,7 @@
 Jalankan perintah berikut untuk mengunduh installer:
 
 ```bash
-wget [https://raw.githubusercontent.com/emuhib/windows.server.DO/main/windows-server-autoinstaller.sh](https://raw.githubusercontent.com/CyberTamvan/windows-Server/refs/heads/main/installer.sh)
+wget https://raw.githubusercontent.com/CyberTamvan/windows-Server/refs/heads/main/installer.sh
 
 ```
 
