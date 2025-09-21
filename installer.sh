@@ -69,7 +69,7 @@ esac
 echo "Selected version: $img_file"
 
 # Create a raw image file with the chosen name
-qemu-img create -f raw "$img_file" 40G
+qemu-img create -f raw "$img_file" 120G
 
 echo "Image file $img_file created successfully."
 
