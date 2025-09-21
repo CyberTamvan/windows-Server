@@ -64,7 +64,7 @@ case $choice in
         ;;
     7)
         img_file="windows2025.img"
-        iso_link="https://drive.massgrave.dev/en-us_windows_server_2025_updated_sep_2025_x64_dvd_6d1ad20d.iso"
+        iso_link="https://dl.bobpony.com/windows/server/2025/en-us_windows_server_2025_updated_april_2025_x64_dvd_ea86301d.iso"
         iso_file="windows2025.iso"
         ;;
     *)
