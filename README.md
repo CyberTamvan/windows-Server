@@ -1,125 +1,116 @@
+# 🚀 Panduan Instalasi Windows Server via QEMU
 
-## Langkah-langkah Instalasi
+## 📥 Langkah-langkah Instalasi
 
-### 1. Unduh dan Instal File Installer
+### 1️⃣ Unduh dan Instal File Installer
 Jalankan perintah berikut untuk mengunduh installer:
 
 ```bash
 wget https://raw.githubusercontent.com/CyberTamvan/windows-Server/refs/heads/main/installer.sh
-
 ```
 
-### 2. Berikan Izin Eksekusi pada File
-Setelah diunduh, berikan izin agar file dapat dijalankan:
+### 2️⃣ Berikan Izin Eksekusi pada File
+Setelah diunduh, ubah permission agar file bisa dijalankan:
 
 ```bash
 chmod +x installer.sh
-
 ```
 
-### 3. Jalankan Installer
-Jalankan installer dengan perintah berikut:
+### 3️⃣ Jalankan Installer
+Eksekusi installer:
 
 ```bash
 ./installer.sh
-
 ```
 
-### 4. Jalankan QEMU
-Setelah installer selesai, jalankan QEMU untuk memulai Windows Server. Ganti `xx` dengan versi Windows yang Anda pilih (misal, `windows10`):
+### 4️⃣ Jalankan QEMU
+Setelah proses instalasi selesai, jalankan QEMU untuk memulai Windows Server.  
+Ganti `xx` dengan versi Windows yang dipilih (contoh: `windows10`):
 
 ```bash
-qemu-system-x86_64 \
--m 4G \
--cpu host \
--enable-kvm \
--boot order=d \
--drive file=windowsxx.iso,media=cdrom \
--drive file=windowsxx.img,format=raw,if=virtio \
--drive file=virtio-win.iso,media=cdrom \
--device usb-ehci,id=usb,bus=pci.0,addr=0x4 \
--device usb-tablet \
--vnc :0
-
-
+qemu-system-x86_64 -m 4G -cpu host -enable-kvm -boot order=d -drive file=windowsxx.iso,media=cdrom -drive file=windowsxx.img,format=raw,if=virtio -drive file=virtio-win.iso,media=cdrom -device usb-ehci,id=usb,bus=pci.0,addr=0x4 -device usb-tablet -vnc :0
 ```
 
-**Catatan: Tekan Enter dua kali untuk melanjutkan.**
+> ⚠️ **Catatan:** Tekan **Enter dua kali** untuk melanjutkan.
 
-### 5. Akses via VNC
-Setelah QEMU berjalan, ikuti langkah berikut untuk mengakses dan mengonfigurasi Windows Server:
+### 5️⃣ Akses via VNC
+Setelah QEMU berjalan, lakukan konfigurasi di Windows Server:
+- ✅ Aktifkan **Remote Desktop**
+- ❌ Nonaktifkan **CTRL+ALT+DEL** di Local Security
+- 🔋 Atur agar Windows **tidak pernah sleep**
 
-1. Aktifkan **Remote Desktop** di pengaturan Windows Server.
-2. Nonaktifkan **CTRL+ALT+DEL** di Local Security.
-3. Atur agar Windows Server **tidak pernah tidur**.
+---
 
-### 6. Kompres File Windows Server
-Setelah konfigurasi selesai, kompres image Windows Server. Ganti `xxxx` dengan versi Windows yang Anda pilih (misal, `windows10`):
+## 📦 Kompres & Distribusi File Windows Server
+
+### 6️⃣ Kompres File Windows Server
+Ganti `xxxx` dengan versi Windows (contoh: `windows10`):
 
 ```bash
 dd if=windowsxxxx.img | gzip -c > windowsxxxx.gz
-
 ```
 
-### 7. Instal Apache
-Instal Apache untuk melayani file melalui web:
+### 7️⃣ Instal Apache
+Gunakan perintah berikut:
 
 ```bash
 apt install apache2 -y
-
 ```
 
-### 8. Berikan Akses Firewall untuk Apache
-Izinkan akses Apache melalui firewall:
+### 8️⃣ Berikan Akses Firewall
+Izinkan Apache di firewall:
 
 ```bash
 sudo ufw allow 'Apache'
-
 ```
 
-### 9. Pindahkan File Windows Server ke Lokasi Web
-Salin file Windows Server yang sudah dikompres ke direktori web Apache:
+### 9️⃣ Pindahkan File ke Direktori Web
+Salin hasil kompresi ke folder Apache:
 
 ```bash
 cp windowsxxxx.gz /var/www/html/
-
 ```
 
-### 10. Link Download
-Setelah file dipindahkan, akses file tersebut melalui alamat IP droplet Anda:
+### 🔗 10. Link Download
+Akses file melalui IP droplet Anda:
 
 ```
 http://[IP_Droplet]/windowsxxxx.gz
-
 ```
 
 **Contoh:**
 ```
 http://188.166.190.241/windows10.gz
-
 ```
 
-## Menjalankan Windows Server di Droplet Baru
+---
 
-Untuk menjalankan Windows Server di droplet baru, gunakan perintah berikut. Ganti `LINK` dengan link unduhan file yang sudah dikompres sebelumnya:
+## 🌐 Menjalankan Windows Server di Droplet Baru
+Gunakan perintah berikut (ganti `LINK` dengan URL file Anda):
 
 ```bash
 wget -O- --no-check-certificate LINK | gunzip | dd of=/dev/vda
-
 ```
-## Upload File Windows Dari server Langsung ke Gdrive
-Perintah ini menggunakan rclone, jadi pastikan dulu install rclone dan atur config di server lalu sambungkan ke Gdrive
 
-**Cek Isi Folder**
+---
+
+## ☁️ Upload File Windows ke Google Drive
+
+Perintah ini menggunakan **rclone**. Pastikan sudah diinstal dan dikonfigurasi.
+
+### 🔍 Cek Isi Folder
 ```bash
 ls -l /var/www/html/winser/
+```
 
-```
-**Perintah Upload**
-```
+### 📤 Upload ke Gdrive
+```bash
 rclone copy /var/www/html/winser/windows2019.gz gdrive: --progress
-
 ```
-### Catatan Penting:
-- Pastikan Anda mengganti placeholder `xxxx` dengan versi Windows yang benar.
-- Jangan lupa untuk mengganti `LINK` dengan URL file Anda yang sebenarnya.
+
+---
+
+## ⚠️ Catatan Penting
+- Pastikan mengganti **`xxxx`** dengan versi Windows yang sesuai.
+- Ganti **`LINK`** dengan URL file hasil kompresi Anda.
+- Jangan lupa mengaktifkan **rclone config** sebelum upload ke Google Drive.
